@@ -4,8 +4,11 @@
 
 <template>
   <div class="about">
-    <h1>Despre</h1>
-    <p><strong>Topul știrilor zilnice de sport din online</strong></p>
+    <h1>Topul știrilor zilnice de sport din online</h1>
+    <h2>
+      O selecție a știrilor de sport din principalele siteuri online de specialitate:
+    </h2>
+    <br/>
     <ul>
       <li>GSP</li>
       <li>Digisport</li>
@@ -16,11 +19,5 @@
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
+
 </style>
