@@ -3,7 +3,13 @@ import {{pascalCase name}} from '@/views/{{pascalCase name}}.vue'
 
 describe('{{pascalCase name}}.vue', () => {
 it('renders correctly', () => {
+try {
 const wrapper = mount({{pascalCase name}})
-expect(wrapper.text()).toContain('{{pascalCase name}}')
+// console.log(wrapper.html())
+expect(wrapper.text()).toContain('{{pascalCase name}}') // change here with real value of h1 or other div
+} catch (err) {
+console.error('Mount failed:', err)
+throw err
+}
 })
 })

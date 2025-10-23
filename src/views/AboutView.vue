@@ -1,3 +1,7 @@
+<script setup>
+// No logic needed for now
+</script>
+
 <template>
   <div class="about">
     <h1>Despre</h1>

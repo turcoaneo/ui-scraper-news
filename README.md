@@ -68,3 +68,8 @@ npm run test:e2e
 ```sh
 npm run lint
 ```
+
+### Generate view with plop in src/views (plus test file in tests/unit folder)
+```sh
+npx plop view
+```

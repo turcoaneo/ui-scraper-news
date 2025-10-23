@@ -13,7 +13,8 @@ import styles from '@/assets/App.module.css'
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Acasă</RouterLink>
-        <RouterLink to="/about">Despre</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/despre">Despre</RouterLink>
       </nav>
     </div>
   </header>

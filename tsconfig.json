@@ -1,4 +1,15 @@
 {
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue"],
   "files": [],
   "references": [
     {
@@ -11,7 +22,4 @@
       "path": "./tsconfig.vitest.json"
     }
   ],
-  "compilerOptions": {
-    "module": "NodeNext"
-  }
 }
