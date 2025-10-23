@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ClusterView from '@/views/ClusterView.vue'
-import DespreView from '@/views/DespreView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,19 +7,14 @@ const router = createRouter({
     {
       path: '/',
       name: 'cluster',
-      component: ClusterView,
+      component: ClusterView
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('../views/AboutView.vue'),
-    },
-    {
-      path: '/despre',
-      name: 'despre',
-      component: () => DespreView,
-    },
-  ],
+      component: () => import('../views/AboutView.vue')
+    }
+  ]
 })
 
 export default router

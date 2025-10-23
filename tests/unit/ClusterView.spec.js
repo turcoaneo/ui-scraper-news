@@ -1,12 +1,12 @@
 import { mount } from '@vue/test-utils'
-import AboutView from '@/views/AboutView.vue'
+import ClusterView from '@/views/ClusterView.vue'
 
-describe('AboutView.vue', () => {
+describe('ClusterView.vue', () => {
   it('renders correctly', () => {
     try {
-      const wrapper = mount(AboutView)
+      const wrapper = mount(ClusterView)
       // console.log(wrapper.html())
-      expect(wrapper.text()).toContain('Despre')
+      expect(wrapper.text()).toContain('Știrile de top din sport')
     } catch (err) {
       console.error('Mount failed:', err)
       throw err
