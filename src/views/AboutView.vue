@@ -8,9 +8,8 @@
     <h2>
       O selecție a știrilor de sport din principalele siteuri online de specialitate:
     </h2>
-    <br/>
     <ul>
-      <li>GSP</li>
+      <li><span>GSP</span></li>
       <li>Digisport</li>
       <li>Fanatik</li>
       <li>Prosport</li>
@@ -18,6 +17,6 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 
 </style>
