@@ -2,7 +2,7 @@
     <!-- Triangle ABC -->
     <path d="M100 97 L65 65 L99 32 Z" />
     <!-- Triangle A'B'C' -->
-    <path d="M135 102 L101 65 L135 27" />
+    <path d="M135 100 L101 65 L135 27" />
     <!-- Triangle A''B''C'' -->
     <path d="M170 100 L136 65 L170 27" />
     <!-- Bottom line -->
