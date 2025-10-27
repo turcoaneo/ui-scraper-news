@@ -1,6 +1,9 @@
 <template>
   <div class="cluster-view">
-    <div class="timestamp-indicator" v-if="timestamp">
+    <div
+      :class="['timestamp-indicator', {'tall-timestamp': true}]"
+      v-if="timestamp"
+    >
       Actualizat: {{ formattedTimestamp }}
     </div>
     <h1>Știrile de top din sport</h1>
@@ -23,58 +26,44 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { Cluster, ClusterResponse } from '@/types/cluster'
+import { formatTimestamp } from '@/utils/formatTimestamps'
 
-const clusters = ref([])
+const clusters = ref<Cluster[]>([])
 const timestamp = ref('')
 const delta = ref('')
 const loading = ref(true)
 
 const DNS_ADDRESS = 'http://127.0.0.1:8000'
 
-const formattedTimestamp = computed(() => {
-  if (!timestamp.value) return ''
-  const mainDate = new Date(timestamp.value)
-  const deltaDate = delta.value ? new Date(delta.value) : null
+const formattedTimestamp = computed(() =>
+  formatTimestamp(timestamp.value, delta.value)
+)
 
-  const mainStr = mainDate.toLocaleString('ro-RO', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  })
+const isTallTimestamp = ref(false)
 
-  if (!deltaDate) return mainStr
+const updateTimestampClass = () => {
+  const isMobile = window.innerWidth < 550
+  const isLong = formattedTimestamp.value.includes('Verificat:')
+  isTallTimestamp.value = isMobile && isLong
+}
 
-  const sameDay =
-    mainDate.getFullYear() === deltaDate.getFullYear() &&
-    mainDate.getMonth() === deltaDate.getMonth() &&
-    mainDate.getDate() === deltaDate.getDate()
-
-  const deltaStr = sameDay
-    ? `la ${deltaDate.toLocaleTimeString('ro-RO', {
-      hour: '2-digit',
-      minute: '2-digit'
-    })}`
-    : deltaDate.toLocaleString('ro-RO', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    })
-
-  return `${mainStr} (Verificat${sameDay ? ' ' : ': '}${deltaStr})`
+onUnmounted(() => {
+  window.removeEventListener('resize', updateTimestampClass)
 })
+
+// const isTallTimestamp = computed(() => {
+//   const isMobile = window.innerWidth < 550
+//   const isLong = formattedTimestamp.value.includes('Verificat:')
+//   return isMobile && isLong
+// })
 
 onMounted(() => {
   const fetchClusters = async () => {
     try {
       const response = await fetch(DNS_ADDRESS + '/cluster-cached')
-      const data = await response.json()
+      const data: ClusterResponse = await response.json()
       clusters.value = data.clusters
       timestamp.value = data.timestamp
       delta.value = data.delta || ''
@@ -87,21 +76,30 @@ onMounted(() => {
 
   fetchClusters()
   setInterval(fetchClusters, 300000)
+
+  updateTimestampClass()
+  window.addEventListener('resize', updateTimestampClass)
 })
 </script>
 
+<!--suppress CssUnusedSymbol -->
 <style scoped>
 .cluster-view {
   position: relative;
   padding-top: 2rem;
 }
 
+.tall-timestamp {
+  min-height: 2rem;
+}
+
 .timestamp-indicator {
-  position: absolute;
+  margin-top: -2.5rem;
+  padding: 0.2rem;
   top: 0.5rem;
-  left: 1rem;
   font-size: small;
   color: #888;
+  transition: min-height 0.3s ease;
 }
 
 .cluster {
