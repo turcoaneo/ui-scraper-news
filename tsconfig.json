@@ -7,9 +7,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["vitest", "node"]
   },
-  "include": ["src"],
+  "include": ["src", "tests"],
   "files": [],
   "references": [
     {

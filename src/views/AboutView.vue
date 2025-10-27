@@ -9,7 +9,7 @@
       O selecție a știrilor de sport din principalele siteuri online de specialitate:
     </h2>
     <ul>
-      <li><span>GSP</span></li>
+      <li>GSP</li>
       <li>Digisport</li>
       <li>Fanatik</li>
       <li>Prosport</li>

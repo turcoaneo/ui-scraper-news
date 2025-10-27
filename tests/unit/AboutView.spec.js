@@ -6,7 +6,7 @@ describe('AboutView.vue', () => {
     try {
       const wrapper = mount(AboutView)
       // console.log(wrapper.html())
-      expect(wrapper.text()).toContain('Despre')
+      expect(wrapper.text()).toContain('Topul știrilor zilnice de sport din online')
     } catch (err) {
       console.error('Mount failed:', err)
       throw err

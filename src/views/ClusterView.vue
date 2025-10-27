@@ -27,14 +27,17 @@ import { ref, onMounted, computed } from 'vue'
 
 const clusters = ref([])
 const timestamp = ref('')
+const delta = ref('')
 const loading = ref(true)
 
 const DNS_ADDRESS = 'http://127.0.0.1:8000'
 
 const formattedTimestamp = computed(() => {
   if (!timestamp.value) return ''
-  const date = new Date(timestamp.value)
-  return date.toLocaleString('ro-RO', {
+  const mainDate = new Date(timestamp.value)
+  const deltaDate = delta.value ? new Date(delta.value) : null
+
+  const mainStr = mainDate.toLocaleString('ro-RO', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
@@ -42,6 +45,29 @@ const formattedTimestamp = computed(() => {
     hour: '2-digit',
     minute: '2-digit'
   })
+
+  if (!deltaDate) return mainStr
+
+  const sameDay =
+    mainDate.getFullYear() === deltaDate.getFullYear() &&
+    mainDate.getMonth() === deltaDate.getMonth() &&
+    mainDate.getDate() === deltaDate.getDate()
+
+  const deltaStr = sameDay
+    ? `la ${deltaDate.toLocaleTimeString('ro-RO', {
+      hour: '2-digit',
+      minute: '2-digit'
+    })}`
+    : deltaDate.toLocaleString('ro-RO', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+
+  return `${mainStr} (Verificat${sameDay ? ' ' : ': '}${deltaStr})`
 })
 
 onMounted(() => {
@@ -51,6 +77,7 @@ onMounted(() => {
       const data = await response.json()
       clusters.value = data.clusters
       timestamp.value = data.timestamp
+      delta.value = data.delta || ''
     } catch (error) {
       console.error('Failed to fetch cached clusters:', error)
     } finally {
@@ -59,7 +86,7 @@ onMounted(() => {
   }
 
   fetchClusters()
-  setInterval(fetchClusters, 300000) // every 5 minutes
+  setInterval(fetchClusters, 300000)
 })
 </script>
 

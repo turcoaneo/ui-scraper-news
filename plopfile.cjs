@@ -13,7 +13,7 @@ module.exports = function (plop) {
     ],
     actions: function (data) {
       const viewPath = `src/views/${plop.getHelper('pascalCase')(data.name)}.vue`;
-      const testPath = `tests/unit/${plop.getHelper('pascalCase')(data.name)}.spec.js`;
+      const testPath = `tests/unit/${plop.getHelper('pascalCase')(data.name)}.spec.ts`;
 
       return [
         {
@@ -31,7 +31,7 @@ module.exports = function (plop) {
             execSync(`git add "${viewPath}" "${testPath}"`);
             return '✔️ Files staged with git';
           } catch (err) {
-            throw new Error(`❌ Git add failed: ${err.message}`);
+            throw new Error(`Git add failed: ${err.message}`);
           }
         },
       ];
