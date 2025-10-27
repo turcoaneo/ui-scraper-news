@@ -53,12 +53,6 @@ onUnmounted(() => {
   window.removeEventListener('resize', updateTimestampClass)
 })
 
-// const isTallTimestamp = computed(() => {
-//   const isMobile = window.innerWidth < 550
-//   const isLong = formattedTimestamp.value.includes('Verificat:')
-//   return isMobile && isLong
-// })
-
 onMounted(() => {
   const fetchClusters = async () => {
     try {
