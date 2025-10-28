@@ -6,7 +6,7 @@ import styles from '@/assets/App.module.css'
 
 <template>
   <div :class="styles.logo">
-    <img alt="Vue logo" src="@/assets/logo.svg" width="125" height="80" />
+    <img alt="Vue logo" src="@/assets/logo.svg" width="112" height="80" />
   </div>
   <div class="layout">
     <header>
