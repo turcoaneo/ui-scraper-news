@@ -73,3 +73,14 @@ npm run lint
 ```sh
 npx plop view
 ```
+
+### Build with specific ENV
+```sh
+vite build --mode local     # for local dev
+```
+```sh
+vite build --mode docker    # for Docker
+```
+```sh
+vite build --mode uat       # for AWS
+```

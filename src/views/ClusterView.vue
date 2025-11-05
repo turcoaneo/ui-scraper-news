@@ -35,7 +35,9 @@ const timestamp = ref('')
 const delta = ref('')
 const loading = ref(true)
 
-const DNS_ADDRESS = 'http://127.0.0.1:8000'
+// @ts-ignore
+// noinspection JSUnresolvedReference
+const DNS_ADDRESS = import.meta.env.VITE_API_URL;
 
 const formattedTimestamp = computed(() =>
   formatTimestamp(timestamp.value, delta.value)
@@ -56,7 +58,7 @@ onUnmounted(() => {
 onMounted(() => {
   const fetchClusters = async () => {
     try {
-      const response = await fetch(DNS_ADDRESS + '/cluster-cached')
+      const response = await fetch(`${DNS_ADDRESS}/cluster-cached`);
       const data: ClusterResponse = await response.json()
       clusters.value = data.clusters
       timestamp.value = data.timestamp
