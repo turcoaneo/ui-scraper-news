@@ -37,7 +37,8 @@ const loading = ref(true)
 
 // @ts-ignore
 // noinspection JSUnresolvedReference
-const DNS_ADDRESS = import.meta.env.VITE_API_URL;
+// const DNS_ADDRESS = import.meta.env.VITE_API_URL;
+const DNS_ADDRESS = "http://127.0.0.1:8000";
 
 const formattedTimestamp = computed(() =>
   formatTimestamp(timestamp.value, delta.value)
