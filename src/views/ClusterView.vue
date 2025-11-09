@@ -29,16 +29,15 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { Cluster, ClusterResponse } from '@/types/cluster'
 import { formatTimestamp } from '@/utils/formatTimestamps'
+import settings from "@/config/settings";
+
+const DNS_ADDRESS = settings.baseURL;
 
 const clusters = ref<Cluster[]>([])
 const timestamp = ref('')
 const delta = ref('')
 const loading = ref(true)
 
-// @ts-ignore
-// noinspection JSUnresolvedReference
-// const DNS_ADDRESS = import.meta.env.VITE_API_URL;
-const DNS_ADDRESS = "http://127.0.0.1:8000";
 
 const formattedTimestamp = computed(() =>
   formatTimestamp(timestamp.value, delta.value)
@@ -59,7 +58,9 @@ onUnmounted(() => {
 onMounted(() => {
   const fetchClusters = async () => {
     try {
-      const response = await fetch(`${DNS_ADDRESS}/cluster-cached`);
+      let endpoint = `${DNS_ADDRESS}/cluster-cached`
+      console.log("endpoint: " + endpoint)
+      const response = await fetch(endpoint);
       const data: ClusterResponse = await response.json()
       clusters.value = data.clusters
       timestamp.value = data.timestamp
