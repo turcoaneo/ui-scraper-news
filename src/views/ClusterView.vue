@@ -12,8 +12,8 @@
     <div v-else>
       <div v-for="(cluster, index) in clusters" :key="index" class="cluster">
         <h2>{{ cluster.summary }}</h2>
-        <div class="score">Score: {{ cluster.score.toFixed(3) }}</div>
-        <div><span>Sites:</span> {{ cluster.sites.join(', ') }}</div>
+        <div class="score">Scor: {{ cluster.score.toFixed(3) }}</div>
+        <div><span>Siteuri:</span> {{ cluster.sites.join(', ') }}</div>
         <ul>
           <li v-for="(article, i) in cluster.articles" :key="i">
             <a :href="article.url" target="_blank">{{ article.title }}</a>

@@ -74,9 +74,15 @@ npm run lint
 npx plop view
 ```
 
+### Build with specific ENV for Python FS
+```sh
+npx tsx scripts/build.ts dev # docker uat
+```
+
+
 ### Build with specific ENV
 ```sh
-vite build --mode local     # for local dev
+vite build --mode dev     # for local dev
 ```
 ```sh
 vite build --mode docker    # for Docker
