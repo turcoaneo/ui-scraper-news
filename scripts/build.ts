@@ -29,7 +29,13 @@ mkdirSync(targetTemplates, { recursive: true });
 console.log(`🛠️ Rewriting index.html asset paths`);
 const indexPath = join(distPath, "index.html");
 let indexHtml = readFileSync(indexPath, "utf-8");
-indexHtml = indexHtml.replace(/(src|href)="\/assets\//g, '$1="../static/assets/');
+indexHtml = indexHtml
+  .replace(/(src|href)="\/assets\//g, '$1="../static/assets/')
+  .replace(/href="\/favicon\.(?:svg|png|ico)"/g, match =>
+    match.replace('/favicon.', '../static/favicon.')
+  );
+
+
 // console.log(indexHtml)
 writeFileSync(indexPath, indexHtml);
 
