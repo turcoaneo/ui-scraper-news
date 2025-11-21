@@ -8,6 +8,12 @@
     </div>
     <h1>Știrile de top din sport</h1>
 
+    <div class="but">
+      <button @click="showFilters = !showFilters">Filtrează</button>
+    </div>
+    <!-- ClusterView.vue -->
+    <FilterPanel @apply="fetchClusters" v-if="showFilters" />
+
     <div v-if="loading">Loading...</div>
     <div v-else>
       <div v-for="(cluster, index) in clusters" :key="index" class="cluster">
@@ -29,7 +35,9 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { Cluster, ClusterResponse } from '@/types/cluster'
 import { formatTimestamp } from '@/utils/formatTimestamps'
+import { useFilterStore } from '@/utils/useFilterStore'
 import settings from "@/config/settings";
+import FilterPanel from '@/views/FilterPanel.vue'
 
 const DNS_ADDRESS = settings.baseURL;
 
@@ -38,6 +46,7 @@ const timestamp = ref('')
 const delta = ref('')
 const loading = ref(true)
 
+const showFilters = ref(false)
 
 const formattedTimestamp = computed(() =>
   formatTimestamp(timestamp.value, delta.value)
@@ -51,26 +60,39 @@ const updateTimestampClass = () => {
   isTallTimestamp.value = isMobile && isLong
 }
 
+const filterStore = useFilterStore()
+
+const fetchClusters = async () => {
+  try {
+    const endpoint = `${DNS_ADDRESS}/cluster-cached-filtered`
+    const payload = {
+      filter_places: filterStore.filterPlaces,
+      filter_including: filterStore.filterIncluding,
+      filter_excluding: filterStore.filterExcluding
+    }
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+
+    const data: ClusterResponse = await response.json()
+    clusters.value = data.clusters
+    timestamp.value = data.timestamp
+    delta.value = data.delta || ''
+  } catch (error) {
+    console.error('Failed to fetch filtered clusters:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
 onUnmounted(() => {
   window.removeEventListener('resize', updateTimestampClass)
 })
 
 onMounted(() => {
-  const fetchClusters = async () => {
-    try {
-      let endpoint = `${DNS_ADDRESS}/cluster-cached`
-      console.log("endpoint: " + endpoint)
-      const response = await fetch(endpoint);
-      const data: ClusterResponse = await response.json()
-      clusters.value = data.clusters
-      timestamp.value = data.timestamp
-      delta.value = data.delta || ''
-    } catch (error) {
-      console.error('Failed to fetch cached clusters:', error)
-    } finally {
-      loading.value = false
-    }
-  }
 
   fetchClusters()
   setInterval(fetchClusters, 300000)
@@ -82,9 +104,21 @@ onMounted(() => {
 
 <!--suppress CssUnusedSymbol -->
 <style scoped>
+.but {
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+}
+
 .cluster-view {
   position: relative;
   padding-top: 2rem;
+}
+
+.cluster {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 
 .tall-timestamp {
@@ -98,13 +132,6 @@ onMounted(() => {
   font-size: small;
   color: #888;
   transition: min-height 0.3s ease;
-}
-
-.cluster {
-  margin-bottom: 2rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
 }
 
 .score {
