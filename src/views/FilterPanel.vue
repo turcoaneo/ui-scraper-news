@@ -17,7 +17,11 @@
     </div>
 
     <TagInput v-model="filterStore.filterIncluding" labelText="Include dacă conține:" />
-    <TagInput v-model="filterStore.filterExcluding" labelText="Exclude dacă conține:" />
+    <TagInput
+      v-model="filterStore.filterExcluding"
+      labelText="Exclude dacă conține:"
+      :permanentTags="['Becali']"
+    />
 
     <button @click="applyFilters">Aplică filtre</button>
   </div>
