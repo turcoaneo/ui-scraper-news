@@ -37,7 +37,7 @@ import { ref } from 'vue'
 const props = defineProps<{
   modelValue: string[]
   labelText: string
-  permanentTags?: string[]   // 👈 new optional prop
+  permanentTags?: string[]
 }>()
 
 const emit = defineEmits<{

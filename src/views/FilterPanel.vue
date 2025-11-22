@@ -23,7 +23,7 @@
       :permanentTags="['Becali']"
     />
 
-    <button @click="applyFilters">Aplică filtre</button>
+    <button id="apply-btn" data-testid="apply-button" @click="applyFilters">Aplică filtre</button>
   </div>
 </template>
 

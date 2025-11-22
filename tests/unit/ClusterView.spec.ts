@@ -1,8 +1,12 @@
 import { mount } from '@vue/test-utils'
 import ClusterView from '@/views/ClusterView.vue'
+import { createPinia, setActivePinia } from 'pinia'
 
 // Mock global fetch
 beforeEach(() => {
+  // create and activate Pinia before each test
+  const pinia = createPinia()
+  setActivePinia(pinia)
   global.fetch = vi.fn(() =>
     Promise.resolve({
       json: () =>
