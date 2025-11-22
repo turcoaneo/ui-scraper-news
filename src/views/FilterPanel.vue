@@ -88,6 +88,7 @@ const applyFilters = () => {
 }
 
 .tag-label {
+  color: #00bd7e;
   font-weight: 500;
   width: 127px; /* keeps label readable */
 }

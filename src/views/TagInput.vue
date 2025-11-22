@@ -77,6 +77,7 @@ const removeTag = (index: number) => {
 .tag-label {
   font-weight: 500;
   width: 130px;
+  color: #00bd7e;
 }
 
 .tag-field {
