@@ -32,15 +32,29 @@ let indexHtml = readFileSync(indexPath, "utf-8");
 indexHtml = indexHtml
   .replace(/(src|href)="\/assets\//g, '$1="../static/assets/')
   .replace(/href="\/favicon\.(?:svg|png|ico)"/g, match =>
-    match.replace('/favicon.', '../static/favicon.')
+    match.replace("/favicon.", "../static/favicon.")
   );
-
-
-// console.log(indexHtml)
 writeFileSync(indexPath, indexHtml);
 
 console.log(`📦 Copying index.html to templates`);
 copyFileSync(indexPath, join(targetTemplates, "index.html"));
+
+console.log(`🛠️ Rewriting asset paths in JS chunks`);
+const rewriteRecursive = (dir: string) => {
+  for (const file of readdirSync(dir)) {
+    const filePath = join(dir, file);
+    if (statSync(filePath).isDirectory()) {
+      rewriteRecursive(filePath);
+    } else if (file.endsWith(".js")) {
+      let content = readFileSync(filePath, "utf-8");
+      // Replace both "/assets/" and "assets/" (for __vite__mapDeps arrays)
+      content = content.replace(/["']\/assets\//g, '"static/assets/');
+      content = content.replace(/["']assets\//g, '"static/assets/');
+      writeFileSync(filePath, content);
+    }
+  }
+};
+rewriteRecursive(distPath);
 
 console.log(`📦 Copying assets to static folder`);
 const copyRecursive = (src: string, dest: string) => {
@@ -55,6 +69,6 @@ const copyRecursive = (src: string, dest: string) => {
     }
   }
 };
-
 copyRecursive(distPath, targetStatic);
+
 console.log("✅ Build and copy complete.");
