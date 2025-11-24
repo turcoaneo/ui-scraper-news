@@ -13,7 +13,7 @@
       (pe baza unui model (”dumitrescustefan”) LLM - BERT cu specific românesc, adaptat din
       HuggingFace).
       <br />
-      Butonul de Filtrează din pagina ”Acasă” permite filtrare prin includere și/sau excludere de
+      Butonul ”Filtrează” din pagina ”Acasă” permite filtrare prin includere și/sau excludere de
       cuvinte.
       <br />
       ”Becali” este exclus de server și această opțiune nu poate fi editată de utilizator.
