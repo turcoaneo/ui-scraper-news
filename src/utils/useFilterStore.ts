@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useFilterStore = defineStore('filter', {
   state: () => ({
-    filterPlaces: ['title', 'summary', 'keywords', 'entities'],
+    filterPlaces: ['title', 'keywords', 'summary', 'entities'],
     filterIncluding: [] as string[],
     filterExcluding: [] as string[]
   }),

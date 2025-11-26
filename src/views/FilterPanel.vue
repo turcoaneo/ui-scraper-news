@@ -4,7 +4,7 @@
       <label class="tag-label">Caută după:</label>
       <multiselect
         v-model="filterStore.filterPlaces"
-        :options="['title', 'summary', 'keywords', 'entities']"
+        :options="['title','keywords', 'summary', 'entities']"
         :multiple="true"
         :close-on-select="false"
         placeholder="Selectează câmpuri"
@@ -36,8 +36,8 @@ import 'vue-multiselect/dist/vue-multiselect.css'
 // mapping dictionary
 const labelMap: Record<string, string> = {
   title: 'Titlu',
-  summary: 'Rezumat',
   keywords: 'Cuvinte cheie',
+  summary: 'Rezumat',
   entities: 'Entități'
 }
 
@@ -51,6 +51,28 @@ const applyFilters = () => {
 </script>
 
 <style scoped>
+.filter-row .filter-select ::v-deep(.multiselect__option--highlight) {
+  background-color: #8a8f98;
+  color: #00bd7e;
+  font-size: 0.8rem;
+}
+
+.filter-row .filter-select ::v-deep(.multiselect__tag) {
+  font-size: 0.8rem;
+}
+
+.filter-row .filter-select ::v-deep(.multiselect__option--selected) {
+  font-size: 0.9rem;
+  background-color: #f5f5f7;
+}
+
+.filter-row .filter-select ::v-deep(.multiselect__placeholder) {
+  font-size: 0.8rem;
+  color: #35495e;
+  height: 0.8rem;
+}
+
+
 .filter-panel {
   margin-bottom: 2rem;
   padding: 1.25rem;
