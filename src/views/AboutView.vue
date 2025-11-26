@@ -8,10 +8,10 @@
       <li v-for="site in sites" :key="site">{{ site }}</li>
     </ul>
     <div class="info">
-      Topul este calculat prin identificarea știrilor similare verificând cuvinte cheie
+      Topul este calculat prin identificarea știrilor (24h) similare verificând cuvinte cheie
       <br />
       (pe baza unui model (”dumitrescustefan”) LLM - BERT cu specific românesc, adaptat din
-      HuggingFace).
+      HuggingFace, plus un model pentru declinarea substantivelor bazat pe T5 - SentencePiece).
       <br />
       Butonul ”Filtrează” din pagina ”Acasă” permite filtrare prin includere și/sau excludere de
       cuvinte.
