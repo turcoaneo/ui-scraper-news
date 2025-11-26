@@ -8,15 +8,16 @@
       <li v-for="site in sites" :key="site">{{ site }}</li>
     </ul>
     <div class="info">
-      Topul este calculat prin identificarea știrilor (24h) similare verificând cuvinte cheie
-      <br />
-      (pe baza unui model (”dumitrescustefan”) LLM - BERT cu specific românesc, adaptat din
-      HuggingFace, plus un model pentru declinarea substantivelor bazat pe T5 - SentencePiece).
-      <br />
-      Butonul ”Filtrează” din pagina ”Acasă” permite filtrare prin includere și/sau excludere de
-      cuvinte.
-      <br />
-      ”Becali” este exclus de server și această opțiune nu poate fi editată de utilizator.
+      <p> Topul este calculat prin identificarea știrilor (24h) similare verificând cuvinte cheie
+        (pe baza unui model LLM - BERT (”dumitrescustefan”) cu specific românesc, adaptat din
+        HuggingFace, plus un model pentru declinarea substantivelor bazat pe T5 -
+        SentencePiece).
+      </p>
+      <p> ”Filtrează” din pagina ”Acasă” permite filtrare prin includere și/sau excludere de
+        cuvinte.
+      </p>
+      <p> ”Becali” este exclus de server și această opțiune nu poate fi editată de utilizator.
+      </p>
     </div>
   </div>
 </template>
@@ -42,8 +43,13 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+p {
+  margin-bottom: 0.75rem;
+  text-indent: 0.75rem;
+}
 .about {
   padding: 1rem;
+  margin-left: 05rem;
 }
 
 .list {
