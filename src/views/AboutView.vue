@@ -46,6 +46,7 @@ onMounted(async () => {
 p {
   margin-bottom: 0.75rem;
   text-indent: 0.75rem;
+  max-width: 450px;
 }
 .about {
   padding: 1rem;
