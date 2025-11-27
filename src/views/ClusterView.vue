@@ -12,8 +12,9 @@
       <button @click="showFilters = !showFilters">Filtrează</button>
       <button @click="toggleSort">
         Ordonează
-        <span v-if="sortDescending">⬇</span>
-        <span v-else>⬆</span>
+        <span class="arrow" :class="{ down: sortDescending, up: !sortDescending }">
+          {{ sortDescending ? '⬇' : '⬆' }}
+        </span>
       </button>
     </div>
     <!-- ClusterView.vue -->
@@ -123,6 +124,29 @@ onMounted(() => {
 
 <!--suppress CssUnusedSymbol -->
 <style scoped>
+.arrow {
+  display: inline-block;
+  padding: 0.0rem 0.3rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bolder;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  transform-origin: center;
+}
+
+/* Down state */
+.arrow.down {
+  background-color: #181818;
+  color: #00bd7e;
+  transform: rotateY(0deg); /* facing forward */
+}
+
+/* Up state */
+.arrow.up {
+  background-color: #00bd7e;
+  color: #181818;
+  transform: rotateY(180deg); /* flipped horizontally */
+}
 
 .but {
   margin-bottom: 0.4rem;
