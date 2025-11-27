@@ -10,13 +10,18 @@
 
     <div class="but">
       <button @click="showFilters = !showFilters">Filtrează</button>
+      <button @click="toggleSort">
+        Ordonează
+        <span v-if="sortDescending">⬇</span>
+        <span v-else>⬆</span>
+      </button>
     </div>
     <!-- ClusterView.vue -->
     <FilterPanel @apply="fetchClusters" v-if="showFilters" />
 
     <div v-if="loading">Loading...</div>
     <div v-else>
-      <div v-for="(cluster, index) in clusters" :key="index" class="cluster">
+      <div v-for="(cluster, index) in sortedClusters" :key="index" class="cluster">
         <h2>{{ cluster.summary }}</h2>
         <div class="score">Scor: {{ cluster.score.toFixed(3) }}</div>
         <div><span>Siteuri:</span> {{ cluster.sites.join(', ') }}</div>
@@ -36,10 +41,10 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { Cluster, ClusterResponse } from '@/types/cluster'
 import { formatTimestamp } from '@/utils/formatTimestamps'
 import { useFilterStore } from '@/utils/useFilterStore'
-import settings from "@/config/settings";
+import settings from '@/config/settings'
 import FilterPanel from '@/views/FilterPanel.vue'
 
-const DNS_ADDRESS = settings.baseURL;
+const DNS_ADDRESS = settings.baseURL
 
 const clusters = ref<Cluster[]>([])
 const timestamp = ref('')
@@ -88,6 +93,20 @@ const fetchClusters = async () => {
   }
 }
 
+const sortDescending = ref(true)
+
+const toggleSort = () => {
+  sortDescending.value = !sortDescending.value
+}
+
+const sortedClusters = computed<Cluster[]>(() => {
+  return [...clusters.value].sort((a, b) =>
+    sortDescending.value
+      ? b.score - a.score   // descending
+      : a.score - b.score   // ascending
+  )
+})
+
 onUnmounted(() => {
   window.removeEventListener('resize', updateTimestampClass)
 })
@@ -104,9 +123,21 @@ onMounted(() => {
 
 <!--suppress CssUnusedSymbol -->
 <style scoped>
+
 .but {
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.4rem;
   margin-top: 0.2rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.but button {
+  padding: 0.2rem 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #35495e;
+  color: #00bd7e;
+  cursor: pointer;
 }
 
 .cluster-view {
