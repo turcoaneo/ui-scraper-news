@@ -13,6 +13,11 @@
         HuggingFace, plus un model pentru declinarea substantivelor bazat pe T5 -
         SentencePiece).
       </p>
+      <p>
+        Scorul se calculează prin cumularea cotelor relative de piață ale siteurilor care partajează
+         o știre similară (o știre partajată de trei siteuri va cumula trei cote, relativ la numărul
+         total de siteuri listate aici).
+      </p>
       <p> ”Filtrează” din pagina ”Acasă” permite filtrare prin includere și/sau excludere de
         cuvinte.
       </p>
@@ -48,9 +53,10 @@ p {
   text-indent: 0.75rem;
   max-width: 450px;
 }
+
 .about {
   padding: 1rem;
-  margin-left: 05rem;
+  margin-left: 0.5rem;
 }
 
 .list {
