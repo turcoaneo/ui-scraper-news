@@ -35,6 +35,7 @@
       </div>
     </div>
   </div>
+  <ScrollButton />
 </template>
 
 <script setup lang="ts">
@@ -44,6 +45,7 @@ import { formatTimestamp } from '@/utils/formatTimestamps'
 import { useFilterStore } from '@/utils/useFilterStore'
 import settings from '@/config/settings'
 import FilterPanel from '@/views/FilterPanel.vue'
+import ScrollButton from '@/views/ScrollButton.vue'
 
 const DNS_ADDRESS = settings.baseURL
 
